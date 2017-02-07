@@ -9,9 +9,9 @@
 <body>
 
  <h1> successfull login</h1>
- CreateTicket : <a href="createticket.jsp">CreateTicket</a></br>
- UpdateTicket :<a href="updateticket.jsp">UpdateTicket</a></br>
- CloseTicket  :<a href="closeticket.jsp">CloseTicket</a></br>
- ViewTicket   :<a href="viewticket.jsp">ViewTicket</a>
+ CreateTicket : <a href="../createticket.jsp">CreateTicket</a></br>
+ UpdateTicket :<a href="../updateticket.jsp">UpdateTicket</a></br>
+ CloseTicket  :<a href="../closeticket.jsp">CloseTicket</a></br>
+ ViewTicket   :<a href="../viewticket.jsp">ViewTicket</a>
 </body>
 </html>

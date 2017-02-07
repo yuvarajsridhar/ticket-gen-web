@@ -1,8 +1,5 @@
 package com.yuvaraj.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +15,7 @@ import com.yuvaraj.service.UserDetailService;
 @Controller
 @RequestMapping("/login")
 public class UserController {
+	
 	@GetMapping("/userLogin")
 	public String userLogin(@RequestParam("emailid") String emailid, @RequestParam("password") String password,
 			ModelMap modelMap) {
@@ -40,20 +38,21 @@ public class UserController {
 	}
 
 	
-	  @GetMapping("/employeeLogin") 
+	  @GetMapping("/employeelogin") 
 	  public String employeelogin(@RequestParam("emailid") String emailid, @RequestParam("password") String password,ModelMap modelMap){ 
 		 EmployeeDetail employeeDetail=new EmployeeDetail();
 		  employeeDetail.setEmailId(emailid);
 	   employeeDetail.setPassword(password);
 	  EmployeeDetailService employeeDetailService=new EmployeeDetailService();
 	  try{
+		  System.out.println("hi");
 	  employeeDetailService.login(employeeDetail.getEmailId(),employeeDetail.getPassword()); 
-	  System.out.println("hi");
+	 
 	  
 	  }catch(ValidationException e){
 		  e.printStackTrace();
 		  modelMap.addAttribute("ERROR_MESSAGE",e.getMessage());
-		  return"../userlogin.jsp";
+		  return"../employeelogin.jsp";
 	  }
 	  return"../susscessfull.jsp";
 	  }
