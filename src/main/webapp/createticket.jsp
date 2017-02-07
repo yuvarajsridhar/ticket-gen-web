@@ -7,12 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-    <form action="login/userlogin" method="GET">
-		EmailId : <input type="text" name="emailid"  /> Password : <input
-			type="password" name="password"  />
-		<button type="submit">Submit</button>
 
-	</form>
-    
 </body>
 </html>

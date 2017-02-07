@@ -7,11 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-
- <h1> successfull login</h1>
- CreateTicket : <a href="createticket.jsp">CreateTicket</a></br>
- UpdateTicket :<a href="updateticket.jsp">UpdateTicket</a></br>
- CloseTicket  :<a href="closeticket.jsp">CloseTicket</a></br>
- ViewTicket   :<a href="viewticket.jsp">ViewTicket</a>
+ <form action="login/employeelogin" method="GET">
+		EmailId : <input type="text" name="emailid"  /> Password : <input
+			type="password" name="password"  />
+		<button type="submit">Submit</button>
+  
+	</form>
+	${ERROR_MESSAGE};
 </body>
 </html>

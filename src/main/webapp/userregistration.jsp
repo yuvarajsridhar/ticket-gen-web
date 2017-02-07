@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-      <form action="login/registration" method="GET">
+      <form action="login/userregistration" method="GET">
 		UserId : <input type="text" name="userid"  /> Name : <input
 			type="text" name="username"  />
 			EmailId:<input type="text" name="emailid"/>
