@@ -14,8 +14,9 @@ ${ERROR_MESSAGE}
 		Subject    : <input type="text" name="subject"/> </br>
 		<button type="submit">Submit</button>
 		</form>
-		CreateTicket:<a href="createticket.jsp">createticket</a>
-		CloseTicket :<a href="closeticket.jsp">closeticket</a>
-		ViewTicket  :<a href="viewticket.jsp">viewticket</a>
+		CreateTicket:<a href="createticket.jsp">createticket</a><br>
+		CloseTicket :<a href="closeticket.jsp">closeticket</a><br>
+		ViewTicket  :<a href="viewticket.jsp">viewticket</a><br>
+		 Logout :<a href="../index.jsp">Logout</a>
 </body>
 </html>

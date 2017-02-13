@@ -41,6 +41,7 @@
 CloseTicket:<a href="../closeticket.jsp">closeticket</a></br>
 		CreateTicket:<a href="../createticket.jsp">createticket</a></br>
 		updateTicket:<a href="../updateticket.jsp">updateticket</a>
+		 Logout :<a href="../index.jsp">Logout</a>
 </body>
 
 </html>

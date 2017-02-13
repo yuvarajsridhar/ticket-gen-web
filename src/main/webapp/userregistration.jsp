@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<h2>${ERROR_MESSAGE}</h2>
       <form action="login/userregistration" method="GET">
 		UserId : <input type="text" name="userid"  /> Name : <input
 			type="text" name="username"  />

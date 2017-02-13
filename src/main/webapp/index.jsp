@@ -1,9 +1,21 @@
 <html>
 <body>
-<h1>Ticket generation system!</h1>
-<h2>User</h2> <a href="userlogin.jsp"><h3>UserLogin</h3></a></br>
-<a href="employeelogin.jsp"><h3>EmployeeLogin</h3></a></br>
-<h2>Employee</h2> <a href="userregistration.jsp"><h3>UserRegistration</h3></a></br>
-<a href="employeeregistration"><h3>EmployeeRegistration</h3></a>
+	<h1 style="margin-left: 390px">TICKET MANAGEMENT SYSTEM</h1>
+		<h2>${ERROR_MESSAGE }</h2>
+	<h2 style="margin-left: 395px">
+
+		<font color="green"> <b><a href="userlogin.jsp">User
+					Login</a></b>
+		</font>
+		<font color="green"> <b><a href="userregistration.jsp">User
+					Registration</a></b>
+		</font>
+	</h2>
+<body bgcolor="FFE9E4 ">
+
+	<h2 style="margin-left: 575px">
+		<b><a href="employeelogin.jsp">Employee Login</a></b>
+         <b><a href="employeeregistration.jsp">Employee Registration</a></b>
+	</h2>
 </body>
 </html>

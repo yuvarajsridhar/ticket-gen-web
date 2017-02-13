@@ -29,6 +29,7 @@
 	ViewTicket :<a href="viewticket.jsp">viewticket</a></br>
 	UpdateTicke:<a href="updateticket.jsp">updateticket</a></br>
 	CloseTicket :<a href="closeticket.jsp">closeticket</a></br>
+	 Logout :<a href="../index.jsp">Logout</a>
   
 	${ERROR_MESSAGE};
 </body>

@@ -3,6 +3,7 @@ package com.yuvaraj.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.apache.commons.mail.EmailException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.yuvaraj.dao.TicketDetailDao;
 import com.yuvaraj.exception.ValidationException;
 import com.yuvaraj.model.Department;
+import com.yuvaraj.model.EmployeeDetail;
+import com.yuvaraj.model.Issue;
 import com.yuvaraj.model.TicketDetail;
 import com.yuvaraj.model.UserDetail;
+import com.yuvaraj.service.IssueService;
 import com.yuvaraj.service.TicketDetailService;
 
 @Controller
@@ -68,7 +72,7 @@ public class TicketController {
 		try {
 			TicketDetailService ticketDetailService = new TicketDetailService();
 			ticketDetailService.createTicket(ticketDetail);
-		} catch (ValidationException e) {
+		} catch (ValidationException | EmailException e) {
 			e.printStackTrace();
 			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
 			return "../createticket.jsp";
@@ -95,5 +99,44 @@ public class TicketController {
 			return "../updateticket.jsp";
 		}
 		return "../viewticket.jsp";
+	}
+	@GetMapping("/assignticket")
+	public String assignticket(@RequestParam("ticketid") Integer ticketid,@RequestParam("employeeid") Integer employeeid,ModelMap modelMap){
+		TicketDetail ticketDetail=new TicketDetail();
+		ticketDetail.setId(ticketid);
+		EmployeeDetail employeeDetail =new EmployeeDetail();
+		employeeDetail.setId(employeeid);
+		ticketDetail.setAssignedTo(employeeDetail);
+		ticketDetail.setModifiedTime(LocalDateTime.now());
+		TicketDetailService ticketDetailService=new TicketDetailService();
+		try{
+			ticketDetailService.assignTicket(ticketDetail);
+			modelMap.addAttribute("message"," Ticket Assigned");
+		}
+		catch(ValidationException e){
+			e.printStackTrace();
+			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+			return "../assignticket.jsp";
+			
+		}
+        return "../successfull.jsp";
+	}
+	@GetMapping("/replyticket")
+	public String replyticket(@RequestParam("id")Integer id, @RequestParam("ticketid") Integer ticketid,@RequestParam("solution") String solution,ModelMap modelMap){
+		IssueService issueService=new IssueService();
+		Issue issue=new Issue();
+		issue.setId(id);
+		TicketDetail ticketDetail=new TicketDetail();
+		ticketDetail.setId(ticketid);
+		issue.setTicket(ticketDetail);
+		issue.setSolution(solution);
+		try{
+		issueService.replyToTicket(issue);}
+		catch(ValidationException e){
+			e.printStackTrace();
+			modelMap.addAttribute("ERROR_MESSAGE", e);
+			return "../replyticket.jsp";
+		}
+		return "../successfull.jsp";
 	}
 }
