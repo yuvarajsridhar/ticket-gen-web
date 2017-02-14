@@ -4,11 +4,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.apache.commons.mail.EmailException;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.yuvaraj.dao.TicketDetailDao;
 import com.yuvaraj.exception.ValidationException;
@@ -19,17 +22,34 @@ import com.yuvaraj.model.TicketDetail;
 import com.yuvaraj.model.UserDetail;
 import com.yuvaraj.service.IssueService;
 import com.yuvaraj.service.TicketDetailService;
-
-@Controller
+@CrossOrigin
+@RestController
 @RequestMapping("/ticket")
 public class TicketController {
 
-	@GetMapping("/viewticket")
-	public String viewTicket(@RequestParam("userId") int userId, ModelMap modelMap) {
+	@PutMapping("/viewticket")
+	public List<TicketDetail> viewTicket(@RequestParam("userId") int userId) {
 		TicketDetailDao ticketDetailDao = new TicketDetailDao();
-		List<TicketDetail> t = ticketDetailDao.ticketview(userId);
-		modelMap.addAttribute("Error_Message", t);
-		return "../viewticket.jsp";
+		return  ticketDetailDao.ticketview(userId);
+		
+	
+	}
+	@PostMapping("/delete")
+	public String delete(@RequestParam("ticketid") Integer ticketid,@RequestParam("employeeid") Integer employeeid,ModelMap modelMap){
+		TicketDetail ticketDetail=new TicketDetail();
+		ticketDetail.setId(ticketid);
+		EmployeeDetail employeeDetail=new EmployeeDetail();
+		employeeDetail.setId(employeeid);
+		ticketDetail.setAssignedTo(employeeDetail);
+		TicketDetailService ticketDetailService=new TicketDetailService();
+	   try{
+		   ticketDetailService.delete(ticketDetail);
+	   }catch(ValidationException e){
+		   e.printStackTrace();
+		   modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+		   return "../deleteticket.jsp";
+	   }
+	   return "../successfull.jsp";
 	}
 	@GetMapping("/closeticket")
 	public String closeticket(@RequestParam("ticketid") int ticketid,ModelMap modelMap){
@@ -49,7 +69,7 @@ public class TicketController {
 	return "../viewticket.jsp";
 	}
 
-	@GetMapping("/createticket")
+	@PostMapping("/createticket")
 	public String createticket(@RequestParam("ticketid") Integer ticketid, @RequestParam("userid") Integer userid,
 			@RequestParam("department") Integer department, @RequestParam("subject") String subject,
 			@RequestParam("description") String description, @RequestParam("priority") String priority,
@@ -80,7 +100,7 @@ public class TicketController {
 		return "../viewticket.jsp";
 
 	}
-	@GetMapping("/updateticket")
+	@PostMapping("/updateticket")
 	
 	public String updateticket(@RequestParam("ticketid") Integer ticketid,@RequestParam("subject") String subject,ModelMap modelMap){
 		TicketDetail ticketDetail=new TicketDetail();
@@ -100,7 +120,7 @@ public class TicketController {
 		}
 		return "../viewticket.jsp";
 	}
-	@GetMapping("/assignticket")
+	@PostMapping("/assignticket")
 	public String assignticket(@RequestParam("ticketid") Integer ticketid,@RequestParam("employeeid") Integer employeeid,ModelMap modelMap){
 		TicketDetail ticketDetail=new TicketDetail();
 		ticketDetail.setId(ticketid);
@@ -121,7 +141,7 @@ public class TicketController {
 		}
         return "../successfull.jsp";
 	}
-	@GetMapping("/replyticket")
+	@PostMapping("/replyticket")
 	public String replyticket(@RequestParam("id")Integer id, @RequestParam("ticketid") Integer ticketid,@RequestParam("solution") String solution,ModelMap modelMap){
 		IssueService issueService=new IssueService();
 		Issue issue=new Issue();

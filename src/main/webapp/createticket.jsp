@@ -10,7 +10,7 @@
         <h1>Ticket Generation</h1>
         <form action="ticket/createticket" method="GET">
 		Ticket Id : <input type="number" name="ticketid" /> 
-		User Id : <input type=" number" name="userid" />
+		<input type="hidden" name="userid"value="${userid.id}" />
 		Department:<select name="department">
 		<option value="1">admin</option>
 		<option value="2">software</option>
