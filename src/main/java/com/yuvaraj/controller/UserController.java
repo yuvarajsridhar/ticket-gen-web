@@ -41,18 +41,23 @@ public class UserController {
 		return "../susscessfull.jsp";
 
 	}
+	@GetMapping("/logout")
+	public String logout(HttpSession session){
+		session.invalidate();
+		return "../index.jsp";
+	}
 
 	
 	  @GetMapping("/employeelogin") 
-	  public String employeelogin(@RequestParam("emailid") String emailid, @RequestParam("password") String password,ModelMap modelMap){ 
+	  public String employeelogin(@RequestParam("emailid") String emailid, @RequestParam("password") String password,ModelMap modelMap,HttpSession session){ 
 		 EmployeeDetail employeeDetail=new EmployeeDetail();
 		  employeeDetail.setEmailId(emailid);
 	   employeeDetail.setPassword(password);
 	  EmployeeDetailService employeeDetailService=new EmployeeDetailService();
 	  try{
 		  System.out.println("hi");
-	  employeeDetailService.login(employeeDetail.getEmailId(),employeeDetail.getPassword()); 
-	 
+	     EmployeeDetail row=  employeeDetailService.login(employeeDetail.getEmailId(),employeeDetail.getPassword()); 
+	    session.setAttribute("employeeid", row);
 	  
 	  }catch(ValidationException e){
 		  e.printStackTrace();
@@ -104,7 +109,7 @@ public class UserController {
 		}catch(ValidationException e){
 			e.printStackTrace();
 			modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
-			return "employeeregistration.jsp";
+			return "../employeeregistration.jsp";
 		}
 		modelMap.addAttribute("ERROR_MESSAGE","successfully registered");
 		return "../index.jsp";

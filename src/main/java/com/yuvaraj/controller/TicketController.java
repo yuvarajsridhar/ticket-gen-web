@@ -31,6 +31,23 @@ public class TicketController {
 		modelMap.addAttribute("Error_Message", t);
 		return "../viewticket.jsp";
 	}
+	@GetMapping("/delete")
+	public String delete(@RequestParam("ticketid") Integer ticketid,@RequestParam("employeeid") Integer employeeid,ModelMap modelMap){
+		TicketDetail ticketDetail=new TicketDetail();
+		ticketDetail.setId(ticketid);
+		EmployeeDetail employeeDetail=new EmployeeDetail();
+		employeeDetail.setId(employeeid);
+		ticketDetail.setAssignedTo(employeeDetail);
+		TicketDetailService ticketDetailService=new TicketDetailService();
+	   try{
+		   ticketDetailService.delete(ticketDetail);
+	   }catch(ValidationException e){
+		   e.printStackTrace();
+		   modelMap.addAttribute("ERROR_MESSAGE", e.getMessage());
+		   return "../deleteticket.jsp";
+	   }
+	   return "../successfull.jsp";
+	}
 	@GetMapping("/closeticket")
 	public String closeticket(@RequestParam("ticketid") int ticketid,ModelMap modelMap){
 		TicketDetail ticketDetail=new TicketDetail();
